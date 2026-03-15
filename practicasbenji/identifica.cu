@@ -1,25 +1,25 @@
 #include <stdio.h>
-#define N 100000
 
-__global__ void hiloLider()
+#define TOTAL_HILOS 100000
+
+__global__ void funcion()
 {
-    // Identificador global del hilo
+    // Cálculo del identificador global
     int idGlobal = blockIdx.x * blockDim.x + threadIdx.x;
 
-    // Solo el primer hilo de cada bloque imprime
-    if(idGlobal < N && idGlobal > N-100  )
+    // Solo un hilo específico imprime
+    if(idGlobal == TOTAL_HILOS - 1)
     {
-        printf("Soy el hilo lider del bloque %d (ID global: %d)\n",
-               blockIdx.x, idGlobal);
+        printf("Hola, soy el hilo especifico con ID global: %d\n", idGlobal);
     }
 }
 
 int main()
 {
-    int tambloq= 1024;
-    int bloques = N/tambloq + 1;
+    int hilosPorBloque = 1024;
+    int bloques = TOTAL_HILOS / hilosPorBloque + 1;
 
-    hiloLider<<<bloques, tambloq>>>();
+    funcion<<<bloques, hilosPorBloque>>>();
 
     cudaDeviceSynchronize();
 
