@@ -1,0 +1,9 @@
+id_producto,nombre_producto,categoria,precio,stock
+101,Laptop HP 15,Laptop,14500.5,10
+102,Mouse Logitech,Accesorios,350.0,50
+103,Teclado Mecánico,accesorios,1250.0,20
+104,Monitor Samsung 24,Monitor,3200.0,15
+105,USB Kingston 64GB,Almacenamiento,180.0,100
+106,Disco SSD 1TB,Almacenamiento,2100.0,25
+107,Cable HDMI 2m,Accesorios,-150.0,30
+108,Webcam HD,Cámaras,850.0,-5
