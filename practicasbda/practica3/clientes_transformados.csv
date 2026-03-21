@@ -1,9 +1,6 @@
 id_cliente,nombre_completo,correo,telefono,ciudad,fecha_registro
-1,Ana López,ana.lopez@gmail.com,55-1234-5678,cdmx,2025-10-01
+1,Ana López,ana.lopez@gmail.com,5512345678,Ciudad De México,2025-10-01
 2,Luis Hernandez,luis.hdez@correo.com,5587654321,Puebla,2025-01-15
-3,Sofia Ramirez,sofia.ramirezmail.com,5556781234,Ciudad de México,2025-02-01
 4,Carlos Pérez,carlosperez@empresa.com,5543216789,Querétaro,2025-02-10
-4,Carlos Pérez,carlosperez@empresa.com,5543216789,Querétaro,2025-02-10
-5,María Gómez,,5534567890,Guadalajara,2025-02-20
 6,Juan Torres,juan.torres@mail.com,552345678,Monterrey,2025-01-03
 7,Laura Nava,laura.nava@mail.com,5522334455,Toluca,2025-03-12

@@ -49,7 +49,39 @@ dim_tiempo["nombre_mes"]=dim_tiempo["fecha"].dt.month_name(locale="es_ES") if Fa
 ventas=ventas.merge(productos[["id_producto","precio"]], on = "id_producto", how="left")
 ventas["total_ventas"]=ventas["cantidad"]*ventas["precio"]
 
-print(ventas)
+"""En productos transformados tenemos registros como los siguientes:
+107,Cable HDMI 2m,Accesorios,-150.0,30
+108,Webcam HD,Cámaras,850.0,-5
+Los cuales tienen números negativos en los campos de precio y stock respectivamente.
+Por consiguiente buscamos corregir y proponer una solución, para que no se siga suscitando este problema.
+"""
+productos_cuarentena=productos[(productos['precio'] <0.0 )| (productos['stock'] < 0)]
+productos=productos[(productos['precio']>=0.0) & (productos['stock']>=0)]
+
+"""Asimismo en la tabla contenida de clientes_transformados.csv, exite el siguiente registro:
+3,Sofia Ramirez,sofia.ramirezmail.com,5556781234,Ciudad de México,2025-02-01
+El cual no cuenta con arroba en el correo electronico por lo tanto no podemos saber con exactitud a que dominio nos referimos
+Buscamos aislar este registro para posteriormente buscar una solución"""
+
+clientes_cuarentena=clientes[~(clientes['correo'].str.contains('@', na=False))]
+clientes=clientes[clientes['correo'].str.contains('@', na=False)]
+
+"""Podemos ver el registro de Carlos Perez repetido, en primera instancia la mejor solución, seria eliminar uno
+y implementar una solución para que no existan tuplas repetidas."""
+
+clientes=clientes.drop_duplicates()
+
+"""Es necesario hacer una limpieza de los datos y estandarizarlos a un mismo formato, ya que existen registros como el siguiente:
+1,Ana López,ana.lopez@gmail.com,55-1234-5678,cdmx,2025-10-01
+que es el único que tiene el número escrito con guiones medios, a diferencia de las demas tuplas que no los tienen."""
+
+clientes['telefono']=clientes['telefono'].str.replace('-','', regex=False)
+"""De igual manera veo necesario estandarizar palabras como cdmx y Ciudad de México, ya que semánticamente son iguales."""
+
+clientes['ciudad']=clientes['ciudad'].str.replace('cdmx','Ciudad De México')
+"""De igual manera veo necesario estandarizar la parte de tipo de producto, ya que semánticamente, Accesorios y accesorios
+son lo mismo. """
+productos['categoria']=productos['categoria'].str.replace('accesorios','Accesorios', case=False, regex=True)
 
 # --Objetos limpios transformados
 clientes_final=clientes[["id_cliente","nombre_completo","correo","telefono","ciudad","fecha_registro"]]
@@ -64,5 +96,6 @@ clientes_final.to_csv("clientes_transformados.csv",index=False)
 productos_final.to_csv("productos_transformados.csv",index=False)
 ventas_final.to_csv("ventas_transformadas.csv",index=False)
 dim_tiempo.to_csv("dim_tiempo.csv",index=False)
-
+productos_cuarentena.to_csv("productos_cuarentena.csv", index=False)
+clientes_cuarentena.to_csv("cliente_cuarentena.csv", index=False)
 

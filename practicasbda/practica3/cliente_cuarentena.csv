@@ -1,0 +1,3 @@
+id_cliente,nombre,apellido,correo,telefono,ciudad,fecha_registro,nombre_completo
+3,Sofia,Ramirez,sofia.ramirezmail.com,5556781234,Ciudad de México,2025-02-01,Sofia Ramirez
+5,María,Gómez,,5534567890,Guadalajara,2025-02-20,María Gómez
